@@ -1,0 +1,46 @@
+
+@baseUrl = http://localhost:3000
+
+### Get all flashcards of a user
+GET {{baseUrl}}/api/flashcards
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+### Create a new flashcard for a user
+POST {{baseUrl}}/api/flashcards
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+[{ "back": "str", "front": "str" }]
+
+
+
+### Get a flashcard by flashcard id
+GET {{baseUrl}}/api/flashcards/612a7db3-53cf-4183-9b16-c153f54651b7
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+### Update a flashcard by flashcard id
+PUT {{baseUrl}}/api/flashcards/9d6e78c0-4f53-4416-b1f4-e9466ba4d5da
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+
+[
+    { "back": "updated", "front": "str" },
+    { "back": "updated", "front": "str" }
+]
+
+### Delete a flashcard by flashcard id
+DELETE {{baseUrl}}/api/flashcards/9d6e78c0-4f53-4416-b1f4-e9466ba4d5da
+Content-Type: application/json
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
