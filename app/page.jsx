@@ -131,7 +131,7 @@ export default function Home() {
                 >
                   <div className="absolute w-full h-full backface-hidden">
                     <div className="card-body flex flex-col justify-between h-full bg-base-100 rounded-xl p-6">
-                      <h2 className="card-title text-lg font-semibold mb-2">Question</h2>
+                      <h2 className="card-title text-lg font-semibold mb-2">Question #{index + 1}</h2>
                       <p className="text-sm overflow-auto flex-grow">{card.front}</p>
                       <div className="card-actions justify-between mt-4">
                         <button 
@@ -146,7 +146,7 @@ export default function Home() {
                   </div>
                   <div className="absolute w-full h-full backface-hidden rotate-y-180">
                     <div className="card-body flex flex-col justify-between h-full bg-secondary text-secondary-content rounded-xl p-6">
-                      <h2 className="card-title text-lg font-semibold mb-2">Answer</h2>
+                      <h2 className="card-title text-lg font-semibold mb-2">Answer #{index+1}</h2>
                       <p className="text-sm overflow-auto flex-grow">{card.back}</p>
                       <div className="card-actions justify-end mt-4">
                         <span className="badge border-black text-white bg-black">Click to flip back</span>
