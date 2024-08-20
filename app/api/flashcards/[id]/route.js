@@ -3,57 +3,39 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
+function checkAuthState() {
+	const { userId } = auth();
+	if (!userId) redirect("/sign-in");
+	return userId;
+}
+
 export async function GET(req, { params }) {
-	// const { userId } = auth();
-	// if (!userId) redirect("/sign-in");
+	const user_id = checkAuthState();
 
 	const id = params.id;
 	const { data, error } = await supabase
 		.from("flashcards")
 		.select()
-		.eq("user_id", "user1")
+		.eq("user_id", user_id)
 		.eq("id", id);
 
-	if (error) return new NextResponse(error);
+	if (error) return NextResponse(error);
 
-	return new NextResponse(JSON.stringify(data ? data : []));
-}
-
-export async function PUT(req, { params }) {
-	// const { userId } = auth();
-	// if (!userId) redirect("/sign-in");
-
-	const id = params.id;
-	const values = await req.json();
-
-	const { data, error } = await supabase
-		.from("flashcards")
-		.upsert([
-			{
-				id,
-				user_id: "user1",
-				items: values,
-			},
-		])
-		.select();
-
-	if (error) return new NextResponse(error);
-
-	return new NextResponse(JSON.stringify(data ? data : []));
+	return NextResponse.json(data ? data : []);
 }
 
 export async function DELETE(req, { params }) {
-	// const { userId } = auth();
-	// if (!userId) redirect("/sign-in");
+	const user_id = checkAuthState();
 
 	const id = params.id;
+	console.log(id);
 	const response = await supabase
 		.from("flashcards")
 		.delete()
 		.eq("id", id)
-		.eq("user_id", "user1");
+		.eq("user_id", user_id);
 
-	if (response.error) return new NextResponse(error);
+	if (response.error) return NextResponse(error);
 
-	return new NextResponse(JSON.stringify(response));
+	return NextResponse.json(response);
 }
