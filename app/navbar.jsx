@@ -46,9 +46,13 @@ export default function Navbar() {
       <div className="flex-1">
       <Link href="/" className="btn btn-ghost text-xl font-bold ml-4 text-primary">FlashCard</Link>
       </div>
-      <div className="btn btn-primary m-1 border rounded-lg" onClick={handleSubmit}>
-        Upgrade Plan
+      <div>
+        <Link href="/flashcards" className="btn btn-ghost m-1 border rounded-lg">Cards</Link>
+      
       </div>
+      {/* <div className="btn btn-primary m-1 border rounded-lg" onClick={handleSubmit}>
+        Upgrade Plan
+      </div> */}
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn m-1 border rounded-lg">

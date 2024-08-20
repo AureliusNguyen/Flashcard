@@ -39,10 +39,10 @@ export default function Flashcards() {
 	};
 
 	return (
-		<div className="w-full">
-			<h2>My flashcards</h2>
+		<div className="flex flex-col items-center w-full py-8 bg-base-200">
+			<div className="text-3xl font-bold ">My flashcards</div>
 
-			<div className="dropdown">
+			<div className="dropdown dropdown-hover">
 				<div tabIndex={0} role="button" className="btn mr-1 w-80">
 					{flashcard.id}
 				</div>
@@ -80,13 +80,13 @@ export default function Flashcards() {
 					{Object.keys(flashcard).length > 0 && flashcard.items && (
 						<>
 							<Cards flashcards={flashcard.items} handleDelete={() => null} />
-							<button className="btn btn-error" onClick={handleDelete}>
-								Delete
-							</button>
 						</>
 					)}
 				</div>
 			</div>
+							<button className="btn btn-error flex flex-col items-center mt-4" onClick={handleDelete}>
+								Delete
+							</button>
 		</div>
 	);
 }
