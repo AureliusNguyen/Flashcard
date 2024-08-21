@@ -17,21 +17,24 @@ export default function Card({ card, index, handleDelete }) {
 								Question
 							</h2>
 						</div>
-						<p className="text-sm overflow-auto flex-grow">
-							{card.front}
-						</p>
-						
+						<p className="text-sm overflow-auto flex-grow">{card.front}</p>
+						{handleDelete && (
+							<button
+								className="btn btn-error btn-sm w-fit"
+								onClick={(e) => {
+									e.stopPropagation();
+									handleDelete(index);
+								}}
+							>
+								Delete
+							</button>
+						)}
 					</div>
 				</div>
 				<div className="absolute w-full h-full backface-hidden rotate-y-180">
 					<div className="card-body flex flex-col justify-between h-full bg-secondary text-secondary-content rounded-xl p-6">
-						<h2 className="card-title text-lg font-semibold mb-2">
-							Answer
-						</h2>
-						<p className="text-sm overflow-auto flex-grow">
-							{card.back}
-						</p>
-						
+						<h2 className="card-title text-lg font-semibold mb-2">Answer</h2>
+						<p className="text-sm overflow-auto flex-grow">{card.back}</p>
 					</div>
 				</div>
 			</div>
