@@ -46,13 +46,22 @@ export default function Navbar() {
       <div className="flex-1">
       <Link href="/" className="btn btn-ghost text-xl font-bold ml-4 text-primary">FlashCard</Link>
       </div>
+      <div className="relative inline-block m-1 group">
+        <button
+          className="btn btn-secondary border rounded-lg"
+          onClick={handleSubmit}
+        >
+          Upgrade Pro
+        </button>
+        {/* Tooltip */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-max bg-gray-700 text-white text-xs rounded-lg py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out pointer-events-none">
+          +10 more maximum flashcards for a one time purchase.
+        </div>
+      </div>
       <div>
         <Link href="/flashcards" className="btn btn-ghost m-1 border rounded-lg">Cards</Link>
       
       </div>
-      {/* <div className="btn btn-primary m-1 border rounded-lg" onClick={handleSubmit}>
-        Upgrade Plan
-      </div> */}
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn m-1 border rounded-lg">
