@@ -25,21 +25,21 @@ export default function Navbar() {
 					href="/"
 					className="btn btn-ghost text-xl font-bold ml-4 text-primary"
 				>
-					FlashCard
+					FlashCard.ai
 				</Link>
 			</div>
-			<div>
+			<SignedIn>
 				<Link
 					href="/flashcards"
-					className="btn btn-ghost m-1 border rounded-lg"
+					className="btn btn-primary m-1 border rounded-lg"
 				>
 					My Flashcards
 				</Link>
-			</div>
+			</SignedIn>
 
 			<div className="flex-none gap-2">
 				<div className="dropdown dropdown-end">
-					<label tabIndex={0} className="btn m-1 border rounded-lg">
+					<label tabIndex={0} className="btn btn-primary m-1 border rounded-lg">
 						Theme
 						<svg
 							width="12px"

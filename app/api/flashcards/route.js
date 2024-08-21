@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 function checkAuthState() {
 	const { userId } = auth();
-	if (!userId) redirect("/sign-in");
+	if (!userId) redirect("/");
 	return userId;
 }
 
