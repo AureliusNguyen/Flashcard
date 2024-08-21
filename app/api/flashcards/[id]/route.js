@@ -23,19 +23,3 @@ export async function GET(req, { params }) {
 
 	return NextResponse.json(data ? data : []);
 }
-
-export async function DELETE(req, { params }) {
-	const user_id = checkAuthState();
-
-	const id = params.id;
-	console.log(id);
-	const response = await supabase
-		.from("flashcards")
-		.delete()
-		.eq("id", id)
-		.eq("user_id", user_id);
-
-	if (response.error) return NextResponse(error);
-
-	return NextResponse.json(response);
-}

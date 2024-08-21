@@ -1,6 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import HomePage from "@/components/HomePage";
 import Cards from "@/components/Cards";
 
 export default function Home() {
