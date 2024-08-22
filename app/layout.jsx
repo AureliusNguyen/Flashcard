@@ -1,12 +1,7 @@
-import {
-	ClerkProvider,
-	SignInButton,
-	SignedIn,
-	SignedOut,
-	UserButton,
-} from "@clerk/nextjs";
-import "./globals.css";
 import Navbar from "./navbar";
+import "./globals.css";
+
+import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 
 export default function RootLayout({ children }) {
