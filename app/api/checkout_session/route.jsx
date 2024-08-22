@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-const formatAmountForStripe = (amount) => {
-	return Math.round(amount * 100);
+const price = {
+	basic: 10 * 100,
+	premium: 20 * 100,
 };
 
 export async function GET(req) {
@@ -24,6 +24,9 @@ export async function GET(req) {
 }
 
 export async function POST(req) {
+	const searchParams = req.nextUrl.searchParams;
+	const plan = searchParams.get("plan");
+
 	const params = {
 		mode: "payment",
 		payment_method_types: ["card"],
@@ -32,9 +35,9 @@ export async function POST(req) {
 				price_data: {
 					currency: "usd",
 					product_data: {
-						name: "Buy me a coffee",
+						name: plan === "basic" ? "Basic Plan" : "Premium Plan",
 					},
-					unit_amount: formatAmountForStripe(10),
+					unit_amount: price[plan],
 				},
 				quantity: 1,
 			},

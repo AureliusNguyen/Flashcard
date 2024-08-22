@@ -2,13 +2,41 @@
 
 import Link from "next/link";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-
-const paymentLink = {
-	basic: "https://buy.stripe.com/test_00g02tey8dwlgk8289",
-	premium: "https://buy.stripe.com/test_3cs02t3Tu3VL2tidQQ",
-};
+import { useEffect, useState } from "react";
+import getStripe from "@/utils/get-stripe";
 
 export default function Home() {
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => setMounted(true), []);
+
+	if (!mounted) return null;
+
+	const handleSubmit = async (plan) => {
+		const checkoutSession = await fetch("api/checkout_session?plan=" + plan, {
+			method: "POST",
+			headers: {
+				origin: "",
+			},
+		});
+
+		const checkoutSessionJSON = await checkoutSession.json();
+
+		if (checkoutSession.statusCode === 500) {
+			console.error(checkoutSession.message);
+			return;
+		}
+
+		const stripe = await getStripe(process.env.STRIPE_SECRET_KEY);
+		const { error } = await stripe.redirectToCheckout({
+			sessionId: checkoutSessionJSON.id,
+		});
+
+		if (error) {
+			console.warn(error.message);
+		}
+	};
+
 	return (
 		<div>
 			<p>Add some stuff</p>
@@ -22,9 +50,12 @@ export default function Home() {
 				<div>
 					<p className="font-semibold">Basic Plan</p>
 					<SignedIn>
-						<Link className="btn btn-primary" href={paymentLink.basic}>
+						<button
+							className="btn btn-primary"
+							onClick={() => handleSubmit("basic")}
+						>
 							Pay
-						</Link>
+						</button>
 					</SignedIn>
 					<SignedOut>
 						<p>Sign in to pay</p>
@@ -33,9 +64,12 @@ export default function Home() {
 				<div>
 					<p className="font-semibold">Premium Plan</p>
 					<SignedIn>
-						<Link className="btn btn-primary" href={paymentLink.premium}>
+						<button
+							className="btn btn-primary"
+							onClick={() => handleSubmit("premium")}
+						>
 							Pay
-						</Link>
+						</button>
 					</SignedIn>
 					<SignedOut>
 						<p>Sign in to pay</p>
