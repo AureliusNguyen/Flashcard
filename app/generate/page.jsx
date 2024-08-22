@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cards from "@/components/Cards";
 
 export default function Chatbot() {
@@ -82,9 +82,14 @@ export default function Chatbot() {
 			method: "POST",
 			body: JSON.stringify({ name: flashcardName, items: flashcards }),
 		});
+
+		setMessage("");
+		setFlashcards([]);
 		if (response.ok) {
 			alert("saved.");
 		}
+
+		if (response.status == "403") alert("Plan limit exceeded");
 	};
 
 	const openEditModal = () => {
