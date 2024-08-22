@@ -12,10 +12,7 @@ function checkAuthState() {
 export async function GET() {
 	const user_id = checkAuthState();
 
-	const { data, error } = await supabase
-		.from("flashcards")
-		.select("*")
-		.eq("user_id", user_id);
+	const { data, error } = await supabase.from("flashcards").select("*").eq("user_id", user_id);
 
 	if (error) return NextResponse(error);
 
@@ -40,10 +37,7 @@ export async function POST(req) {
   			SELECT COUNT(*) AS COUNT, u.id, u.plan FROM flashcards f, users u
 			where u.id=f.user_id GROUP BY u.id;
 	*/
-	const countTable = await supabase
-		.from("user_count")
-		.select()
-		.eq("id", user_id);
+	const countTable = await supabase.from("user_count").select().eq("id", user_id);
 
 	const isVerified = countTable.data ? verifyPlan(countTable.data) : false;
 	if (!isVerified) {

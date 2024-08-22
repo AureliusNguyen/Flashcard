@@ -1,11 +1,9 @@
-import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { env } from "@/utils/secrets";
+import { NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const price = {
-	basic: 10 * 100,
-	premium: 20 * 100,
-};
+const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+const price = { basic: 10 * 100, premium: 20 * 100 };
 
 export async function GET(req) {
 	const searchParams = req.nextUrl.searchParams;
@@ -16,10 +14,7 @@ export async function GET(req) {
 		return NextResponse.json(checkoutSession);
 	} catch (error) {
 		console.error("Error retrieving checkout session:", error);
-		return NextResponse.json(
-			{ error: { message: error.message } },
-			{ status: 500 }
-		);
+		return NextResponse.json({ error: { message: error.message } }, { status: 500 });
 	}
 }
 
@@ -53,9 +48,6 @@ export async function POST(req) {
 		});
 	} catch (error) {
 		console.error("Error creating checkout session:", error);
-		return NextResponse.json(
-			{ error: { message: error.message } },
-			{ status: 500 }
-		);
+		return NextResponse.json({ error: { message: error.message } }, { status: 500 });
 	}
 }

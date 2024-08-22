@@ -14,7 +14,6 @@ export default function Flashcards() {
 
 		if (response.ok) {
 			response = await response.json();
-			console.log(response);
 			setFlashcard(response.length > 0 ? response : []);
 		}
 	}
@@ -24,12 +23,6 @@ export default function Flashcards() {
 	}, []);
 
 	return (
-		<div>
-			{flashcard.length > 0 ? (
-				<Cards flashcards={flashcard[0]?.items} />
-			) : (
-				"No flashcard"
-			)}
-		</div>
+		<div>{flashcard.length > 0 ? <Cards flashcards={flashcard[0]?.items} /> : "No flashcard"}</div>
 	);
 }

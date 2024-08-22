@@ -12,10 +12,7 @@ function checkAuthState() {
 export async function GET() {
 	const user_id = checkAuthState();
 
-	const { data, error } = await supabase
-		.from("users")
-		.select("*")
-		.eq("id", user_id);
+	const { data, error } = await supabase.from("users").select("*").eq("id", user_id);
 
 	if (error) return NextResponse(error);
 

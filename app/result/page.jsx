@@ -13,11 +13,7 @@ export default function ResultPage() {
 	const [error, setError] = useState(null);
 
 	const getPlan = (amount) => {
-		return amount === 10 * 100
-			? "basic"
-			: amount === 20 * 100
-				? "premium"
-				: "free";
+		return amount === 10 * 100 ? "basic" : amount === 20 * 100 ? "premium" : "free";
 	};
 
 	useEffect(() => {
@@ -25,9 +21,7 @@ export default function ResultPage() {
 			if (!session_id) return;
 
 			try {
-				const res = await fetch(
-					`/api/checkout_session?session_id=${session_id}`
-				);
+				const res = await fetch(`/api/checkout_session?session_id=${session_id}`);
 				const sessionData = await res.json();
 
 				if (res.ok) {
@@ -42,8 +36,7 @@ export default function ResultPage() {
 						}),
 					});
 
-					if (!response.ok)
-						throw new Error("databse error", await response.json());
+					if (!response.ok) throw new Error("databse error", await response.json());
 				} else {
 					// Handle error messages
 					const errorMessage =
@@ -88,14 +81,12 @@ export default function ResultPage() {
 			<p>Redirecting back in 10 sec</p>
 			{session?.payment_status === "paid" ? (
 				<>
-					<h1 className="text-3xl font-bold mb-4">
-						Thank you for your purchase
-					</h1>
+					<h1 className="text-3xl font-bold mb-4">Thank you for your purchase</h1>
 					<div className="bg-gray-100 p-4 rounded-lg">
 						<p className="text-lg">Session ID: {session.id}</p>
 						<p className="text-base mt-2">
-							We have received your payment. You will receive an email with the
-							order details shortly.
+							We have received your payment. You will receive an email with the order details
+							shortly.
 						</p>
 						<p className="text-lg">Email: {session.customer_details.email}</p>
 						<p className="text-lg">Plan: {getPlan(session.amount_total)}</p>
@@ -106,9 +97,7 @@ export default function ResultPage() {
 					<h1 className="text-3xl font-bold mb-4">Payment Failed</h1>
 					<div className="bg-gray-100 p-4 rounded-lg">
 						<p className="text-lg">Session ID: {session_id}</p>
-						<p className="text-base mt-2">
-							Your payment was not successful. Please try again.
-						</p>
+						<p className="text-base mt-2">Your payment was not successful. Please try again.</p>
 					</div>
 				</>
 			)}

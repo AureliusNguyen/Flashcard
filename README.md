@@ -1,4 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+FlashCard.ai app to generate and share AI Flashcards.
+
+### Database Schema
+Table: users(id, session_id, email, plan)
+Table: flashcards(id, user_id, name, items)
+View: user_count(id, count, plan)
 
 ## Getting Started
 

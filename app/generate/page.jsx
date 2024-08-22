@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+
 import Cards from "@/components/Cards";
+import { useRef, useState } from "react";
 
 export default function Chatbot() {
 	const [flashcards, setFlashcards] = useState([]);
@@ -39,9 +40,7 @@ export default function Chatbot() {
 		e.preventDefault();
 
 		if (flashcards.length >= 10) {
-			setMessage(
-				"Maximum limit of 10 flashcards reached. Please delete some to generate more."
-			);
+			setMessage("Maximum limit of 10 flashcards reached. Please delete some to generate more.");
 			return;
 		}
 
@@ -85,11 +84,9 @@ export default function Chatbot() {
 
 		setMessage("");
 		setFlashcards([]);
-		if (response.ok) {
-			alert("saved.");
-		}
 
-		if (response.status == "403") alert("Plan limit exceeded");
+		if (response.ok) alert("saved.");
+		if (response.status == "403") alert("Error: Plan limit exceeded");
 	};
 
 	const openEditModal = () => {
@@ -99,9 +96,7 @@ export default function Chatbot() {
 
 	const handleEditChange = (index, field, value) => {
 		setEditableFlashcards(
-			editableFlashcards.map((card, i) =>
-				i === index ? { ...card, [field]: value } : card
-			)
+			editableFlashcards.map((card, i) => (i === index ? { ...card, [field]: value } : card))
 		);
 	};
 
@@ -118,15 +113,10 @@ export default function Chatbot() {
 	};
 
 	return (
-		<main className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 p-4 md:p-8">
+		<main className="min-h-screen bg-gradient-to-br from-base-200 to-base-300 p-4 pt-8 md:p-8">
 			<div className="container mx-auto">
-				<h1 className="text-3xl font-bold text-center mb-8 text-primary">
-					Flashcard Generator
-				</h1>
-				<form
-					className="flex flex-col items-center w-full gap-y-4 mb-12"
-					onSubmit={generate}
-				>
+				<h1 className="text-3xl font-bold text-center mb-8 text-primary">Flashcard Generator</h1>
+				<form className="flex flex-col items-center w-full gap-y-4 mb-12" onSubmit={generate}>
 					<textarea
 						className="textarea textarea-primary w-full max-w-2xl h-36 text-sm shadow-lg focus:textarea-accent transition-all duration-300"
 						placeholder={`Example:\nPlanets\n\nQ: Is the sun hot?\nQ: What is the temperature of the sun?`}
@@ -145,10 +135,7 @@ export default function Chatbot() {
 				<div className="w-full">
 					{flashcards.length > 0 && (
 						<div className="flex w-full justify-end mb-4">
-							<button
-								onClick={openEditModal}
-								className="btn btn-primary btn-sm"
-							>
+							<button onClick={openEditModal} className="btn btn-primary btn-sm">
 								Edit
 							</button>
 						</div>
@@ -157,10 +144,7 @@ export default function Chatbot() {
 					<Cards flashcards={flashcards} handleDelete={handleDelete} />
 
 					{flashcards.length > 0 && (
-						<form
-							className="text-center mb-4 mt-8 space-x-4"
-							onSubmit={handleSave}
-						>
+						<form className="text-center mb-4 mt-8 space-x-4" onSubmit={handleSave}>
 							<input
 								type="text"
 								placeholder="Name"
@@ -206,19 +190,14 @@ export default function Chatbot() {
 						<h2 className="text-2xl font-bold mb-4">Edit Flashcards</h2>
 						<div className="grid md:grid-cols-2 gap-4">
 							{editableFlashcards.map((card, index) => (
-								<div
-									key={index}
-									className="mb-4 p-4 border border-base-300 rounded-lg"
-								>
+								<div key={index} className="mb-4 p-4 border border-base-300 rounded-lg">
 									<div className="mb-2">
 										<p className="">{index + 1}</p>
 										<label className="font-semibold">Question:</label>
 										<textarea
 											className="textarea textarea-bordered w-full"
 											value={card.front}
-											onChange={(e) =>
-												handleEditChange(index, "front", e.target.value)
-											}
+											onChange={(e) => handleEditChange(index, "front", e.target.value)}
 										/>
 									</div>
 									<div>
@@ -226,9 +205,7 @@ export default function Chatbot() {
 										<textarea
 											className="textarea textarea-bordered w-full"
 											value={card.back}
-											onChange={(e) =>
-												handleEditChange(index, "back", e.target.value)
-											}
+											onChange={(e) => handleEditChange(index, "back", e.target.value)}
 										/>
 									</div>
 								</div>
@@ -243,10 +220,7 @@ export default function Chatbot() {
 								Add New Flashcard
 							</button>
 							<div>
-								<button
-									onClick={() => setIsEditModalOpen(false)}
-									className="btn btn-ghost mr-2"
-								>
+								<button onClick={() => setIsEditModalOpen(false)} className="btn btn-ghost mr-2">
 									Cancel
 								</button>
 								<button onClick={saveEdits} className="btn btn-primary">
